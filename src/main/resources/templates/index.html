@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <meta charset="utf-8"/>
+    <title>TODOS</title>
+    <link href="styles/default.css"  rel="stylesheet" />
+    <script src="scripts/bundle.js"></script>
+</head>
+
+<script type="text/html" id="todoItemTemplate">
+    <div class="todo-item">
+        <div class="my-checkbox">
+
+            <input type="checkbox" class="todo-item_ready-mark js-todo-item_mark-ready"
+                   aria-label="Mark as (un)performed" />
+            <div class="todo-item_ready-img"></div>
+
+        </div>
+        <div class="todo-item_textbox">
+            <textarea class="todo-item_text js-todo-item_text" ></textarea>
+        </div>
+
+        <button class="todo-item_remove js-todo-item_remove-action" aria-label="Delete todo"></button>
+<input type="hidden" name="id" class="js-hidden-id" />
+    </div>
+</script>
+
+<body>
+<div class="todos-header">
+
+    <h1 class="todos-title">TODOS</h1>
+    <!-- Для пустого списка: __empty -->
+    <div class="todos-main js-todos-main">
+
+        <div class="todos-add">
+            <button class="todos-add_select-all js-todos-select-all" area-label="Mark all as completed">
+                <div class="todos-add_select-all_icon"></div>
+            </button>
+            <div class="todos-add_input-container">
+                <input class="todos-add_input js-todos-todo-input" placeholder="What needs to be done?"
+                       aria-label="Items for todo adding" />
+            </div>
+        </div>
+
+        <div class="todos-list js-todos-list">
+
+
+            <div th:each="todo_elem : ${todo}" class="todo-item">
+                <div class="my-checkbox">
+
+                    <input type="checkbox" class="todo-item_ready-mark js-todo-item_mark-ready"
+                           aria-label="Mark as (un)performed" />
+                    <div class="todo-item_ready-img"></div>
+
+                </div>
+                <div class="todo-item_textbox">
+                    <textarea class="todo-item_text js-todo-item_text" th:text="${todo_elem.text}"></textarea>
+                </div>
+
+                <button class="todo-item_remove js-todo-item_remove-action" aria-label="Delete todo"></button>
+                <input type="hidden" name="id" class="js-hidden-id" th:value="${todo_elem.id}" />
+            </div>
+
+
+        </div>
+
+        <div class="todos-action-bar">
+            <div class="todos-action-bar_counter js-todos-actions-bar_counter">0 items left</div>
+            <div class="todos_filters js-todos-actions-bar_filter">
+                <button class="todos-filter filter __active" data-filter="all"
+                        aria-label="Filter: view all">All
+                </button>
+                <button class="todos-filter filter" data-filter="unready"
+                        aria-label="Filter: view unperformed">Active
+                </button>
+                <button class="todos-filter filter" data-filter="ready"
+                        aria-label="Filter: view performed">Completed
+                </button>
+            </div>
+
+            <button class="todos-action-bar_clear-completed js-todos-actions-bar_clear-completed">
+                Clear completed
+            </button>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<!--not value-->
